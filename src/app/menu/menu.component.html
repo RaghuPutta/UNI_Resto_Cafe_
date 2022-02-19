@@ -1,0 +1,39 @@
+<div class="menu_bar" *ngIf="restaurantName">
+    <h4>{{restaurantName}}</h4>
+    <div>
+        <button pButton pRipple type="button" label="My Orders" class="p-button-text"></button>
+        <i class="pi pi-shopping-cart mr-4 p-text-secondary" pBadge style="font-size: 2rem" [value]="itemCount" severity="danger"></i>
+
+    </div>
+
+</div>
+
+<div *ngIf="scrollableItems.length>0">
+    <p-tabMenu [model]="scrollableItems" [scrollable]="true" [activeItem]="activeItem2"></p-tabMenu>
+</div>
+
+<div *ngIf="dishes">
+    <div *ngFor="let dish of dishes" class="main_content">
+
+        <div class="dish_img">
+            <div style="width: 75vh;">
+                <p><strong> {{dish.dish_name}}</strong></p>
+                <strong>{{dish.dish_currency}} {{dish.dish_price}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{dish.dish_calories}}
+                    calories </strong>
+                <p>{{dish.dish_description}}</p>
+            </div>
+            <img src="../../assets/images/Bengaluru-darshini-style-sambar-recipe-restaurant-sweet-sambar-13.jpg" alt="Image" width>
+
+        </div>
+
+
+        <div style="background-color: greenyellow; width: 80px;" class="plus_minus">
+            <a (click)="dish.itemCount= dish.itemCount+1; onPlusClick(dish.itemCount)"><i class="pi pi-plus"></i></a>
+            <strong>{{dish.itemCount}}</strong>
+            <!-- <a (click)="onMinusClick(dish.itemCount); dish.itemCount===0? dish.itemCount=0: dish.itemCount = dish.itemCount-1; "><i class="pi pi-minus"></i></a> -->
+            <a (click)="dish.itemCount=onMinusClick(dish.itemCount);" [ngClass]="{'isDisabled': dish.itemCount===0}"><i class="pi pi-minus"></i></a>
+        </div>
+        <p style="color: red;" *ngIf="dish.addonCat.length">Customizations Available</p>
+    </div>
+
+</div>
